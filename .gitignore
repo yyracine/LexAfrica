@@ -1,0 +1,45 @@
+# ── Secrets ──────────────────────────────────────────────
+backend/.env
+frontend/.env.local
+*.pem
+
+# ── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# ── Node / Next.js ───────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/coverage/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+frontend/.vercel
+frontend/*.tsbuildinfo
+frontend/nextdev.log
+
+# ── Workspace Jarvis (fichiers personnels) ───────────────
+.claude/
+context/
+module-installs/
+
+# ── Fichiers de test locaux ──────────────────────────────
+test_*.docx
+test_*.json
+
+# ── OS ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

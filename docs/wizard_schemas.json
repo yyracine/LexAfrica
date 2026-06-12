@@ -1,0 +1,261 @@
+{
+  "cdi": {
+    "title": "Contrat de Travail CDI",
+    "description": "Contrat à Durée Indéterminée conforme au Code du Travail local",
+    "countries": ["CI", "SN"],
+    "steps": [
+      {
+        "id": "employeur",
+        "title": "L'entreprise",
+        "description": "Informations sur l'employeur",
+        "fields": [
+          { "id": "employer_name", "type": "text", "label": "Nom de l'entreprise", "required": true, "placeholder": "Ex : Société ABC SARL" },
+          { "id": "employer_address", "type": "text", "label": "Adresse du siège social", "required": true, "placeholder": "Ex : 123 Avenue du Commerce, Abidjan" },
+          { "id": "employer_rccm", "type": "text", "label": "Numéro RCCM", "required": false, "placeholder": "Ex : CI-ABJ-2020-B-12345" },
+          { "id": "employer_representative", "type": "text", "label": "Nom du représentant légal", "required": true, "placeholder": "Ex : M. Kouassi, Directeur Général" }
+        ]
+      },
+      {
+        "id": "employe",
+        "title": "L'employé(e)",
+        "description": "Informations sur la personne recrutée",
+        "fields": [
+          { "id": "employee_name", "type": "text", "label": "Nom complet de l'employé(e)", "required": true, "placeholder": "Ex : Traoré Marie" },
+          { "id": "employee_address", "type": "text", "label": "Adresse de l'employé(e)", "required": true },
+          { "id": "employee_birth_date", "type": "text", "label": "Date de naissance", "required": true, "placeholder": "Ex : 15 mai 1992" },
+          { "id": "employee_birth_place", "type": "text", "label": "Lieu de naissance", "required": false, "placeholder": "Ex : Abidjan" },
+          { "id": "employee_nationality", "type": "text", "label": "Nationalité", "required": true, "default_CI": "Ivoirienne", "default_SN": "Sénégalaise" }
+        ]
+      },
+      {
+        "id": "poste",
+        "title": "Le poste",
+        "fields": [
+          { "id": "job_title", "type": "text", "label": "Intitulé du poste", "required": true, "placeholder": "Ex : Comptable, Développeur Web, Directeur Commercial" },
+          {
+            "id": "job_category",
+            "type": "select",
+            "label": "Catégorie professionnelle",
+            "required": true,
+            "options": [
+              { "value": "non_cadre", "label": "Non cadre (ouvrier, employé, technicien)" },
+              { "value": "cadre", "label": "Cadre (manager, directeur, ingénieur)" }
+            ]
+          },
+          { "id": "work_location", "type": "text", "label": "Lieu de travail", "required": true, "placeholder": "Ex : Abidjan, Plateau" }
+        ]
+      },
+      {
+        "id": "remuneration",
+        "title": "La rémunération",
+        "fields": [
+          { "id": "salary", "type": "number", "label": "Salaire mensuel brut (FCFA)", "required": true, "min": 63125, "placeholder": "Ex : 350000" },
+          { "id": "trial_period_months", "type": "number", "label": "Durée de la période d'essai (mois)", "required": true, "default_non_cadre": 3, "default_cadre": 6, "min": 1, "max": 6 }
+        ]
+      },
+      {
+        "id": "dates",
+        "title": "Les dates",
+        "fields": [
+          { "id": "start_date", "type": "text", "label": "Date de début du contrat", "required": true, "placeholder": "Ex : 1er juillet 2026" },
+          { "id": "signature_date", "type": "text", "label": "Date de signature", "required": true, "placeholder": "Ex : 12 juin 2026" },
+          { "id": "signature_place", "type": "text", "label": "Lieu de signature", "required": false, "default_CI": "Abidjan", "default_SN": "Dakar" }
+        ]
+      }
+    ]
+  },
+  "cdd": {
+    "title": "Contrat de Travail CDD",
+    "description": "Contrat à Durée Déterminée avec date de fin obligatoire",
+    "countries": ["CI", "SN"],
+    "steps": [
+      {
+        "id": "employeur",
+        "title": "L'entreprise",
+        "fields": [
+          { "id": "employer_name", "type": "text", "label": "Nom de l'entreprise", "required": true },
+          { "id": "employer_address", "type": "text", "label": "Adresse du siège", "required": true },
+          { "id": "employer_rccm", "type": "text", "label": "Numéro RCCM", "required": false },
+          { "id": "employer_representative", "type": "text", "label": "Représentant légal", "required": true }
+        ]
+      },
+      {
+        "id": "employe",
+        "title": "L'employé(e)",
+        "fields": [
+          { "id": "employee_name", "type": "text", "label": "Nom complet", "required": true },
+          { "id": "employee_address", "type": "text", "label": "Adresse", "required": true },
+          { "id": "employee_birth_date", "type": "text", "label": "Date de naissance", "required": true },
+          { "id": "employee_nationality", "type": "text", "label": "Nationalité", "required": true }
+        ]
+      },
+      {
+        "id": "mission",
+        "title": "Le poste et la mission",
+        "fields": [
+          { "id": "job_title", "type": "text", "label": "Intitulé du poste", "required": true },
+          { "id": "job_category", "type": "select", "label": "Catégorie", "required": true, "options": [
+            { "value": "non_cadre", "label": "Non cadre" },
+            { "value": "cadre", "label": "Cadre" }
+          ]},
+          { "id": "contract_purpose", "type": "textarea", "label": "Motif du CDD", "required": true, "placeholder": "Ex : Remplacement de M. Diallo en congé maternité / Accroissement temporaire d'activité" },
+          { "id": "work_location", "type": "text", "label": "Lieu de travail", "required": true }
+        ]
+      },
+      {
+        "id": "duree_remuneration",
+        "title": "Durée et rémunération",
+        "fields": [
+          { "id": "start_date", "type": "text", "label": "Date de début", "required": true },
+          { "id": "end_date", "type": "text", "label": "Date de fin", "required": true },
+          { "id": "salary", "type": "number", "label": "Salaire mensuel brut (FCFA)", "required": true },
+          { "id": "trial_period_months", "type": "number", "label": "Période d'essai (mois)", "required": true, "default": 1 },
+          { "id": "signature_date", "type": "text", "label": "Date de signature", "required": true },
+          { "id": "signature_place", "type": "text", "label": "Lieu de signature", "required": false }
+        ]
+      }
+    ]
+  },
+  "nda": {
+    "title": "Accord de Confidentialité (NDA)",
+    "description": "Non-Disclosure Agreement B2B conforme au droit OHADA",
+    "countries": ["CI", "SN"],
+    "steps": [
+      {
+        "id": "partie1",
+        "title": "Partie 1 – La divulgatrice",
+        "fields": [
+          { "id": "party1_name", "type": "text", "label": "Nom / Raison sociale", "required": true },
+          { "id": "party1_type", "type": "select", "label": "Type", "required": true, "options": [
+            { "value": "société", "label": "Société" },
+            { "value": "personne physique", "label": "Personne physique" }
+          ]},
+          { "id": "party1_address", "type": "text", "label": "Adresse", "required": true },
+          { "id": "party1_representative", "type": "text", "label": "Représentant", "required": true }
+        ]
+      },
+      {
+        "id": "partie2",
+        "title": "Partie 2 – La réceptrice",
+        "fields": [
+          { "id": "party2_name", "type": "text", "label": "Nom / Raison sociale", "required": true },
+          { "id": "party2_type", "type": "select", "label": "Type", "required": true, "options": [
+            { "value": "société", "label": "Société" },
+            { "value": "personne physique", "label": "Personne physique" }
+          ]},
+          { "id": "party2_address", "type": "text", "label": "Adresse", "required": true },
+          { "id": "party2_representative", "type": "text", "label": "Représentant", "required": true }
+        ]
+      },
+      {
+        "id": "accord",
+        "title": "Les termes de l'accord",
+        "fields": [
+          { "id": "agreement_subject", "type": "textarea", "label": "Objet de la collaboration", "required": true, "placeholder": "Ex : Projet de partenariat commercial dans le secteur fintech" },
+          { "id": "duration_years", "type": "number", "label": "Durée de confidentialité (années)", "required": true, "default": 2, "min": 1, "max": 5 },
+          { "id": "signature_date", "type": "text", "label": "Date de signature", "required": true },
+          { "id": "signature_place", "type": "text", "label": "Lieu de signature", "required": false }
+        ]
+      }
+    ]
+  },
+  "prestation": {
+    "title": "Contrat de Prestation de Services",
+    "description": "Contrat Freelance / Consultant avec livrables et paiement",
+    "countries": ["CI", "SN"],
+    "steps": [
+      {
+        "id": "client",
+        "title": "Le client",
+        "fields": [
+          { "id": "client_name", "type": "text", "label": "Nom / Raison sociale du client", "required": true },
+          { "id": "client_address", "type": "text", "label": "Adresse", "required": true },
+          { "id": "client_representative", "type": "text", "label": "Représentant", "required": true }
+        ]
+      },
+      {
+        "id": "prestataire",
+        "title": "Le prestataire",
+        "fields": [
+          { "id": "consultant_name", "type": "text", "label": "Nom du prestataire", "required": true },
+          { "id": "consultant_type", "type": "select", "label": "Type", "required": true, "options": [
+            { "value": "personne physique", "label": "Personne physique (freelance)" },
+            { "value": "société", "label": "Société" }
+          ]},
+          { "id": "consultant_address", "type": "text", "label": "Adresse", "required": true },
+          { "id": "consultant_expertise", "type": "text", "label": "Domaine d'expertise", "required": false, "placeholder": "Ex : Expert-comptable certifié" }
+        ]
+      },
+      {
+        "id": "mission",
+        "title": "La mission",
+        "fields": [
+          { "id": "mission_description", "type": "textarea", "label": "Description de la mission", "required": true },
+          { "id": "deliverables", "type": "textarea", "label": "Livrables attendus", "required": true },
+          { "id": "mission_start_date", "type": "text", "label": "Date de début", "required": true },
+          { "id": "mission_end_date", "type": "text", "label": "Date de fin", "required": true }
+        ]
+      },
+      {
+        "id": "paiement",
+        "title": "La rémunération",
+        "fields": [
+          { "id": "total_amount", "type": "number", "label": "Montant total HT (FCFA)", "required": true },
+          { "id": "payment_terms", "type": "text", "label": "Modalités de paiement", "required": true, "placeholder": "Ex : 30% à la signature, 70% à la livraison" },
+          { "id": "signature_date", "type": "text", "label": "Date de signature", "required": true },
+          { "id": "signature_place", "type": "text", "label": "Lieu de signature", "required": false }
+        ]
+      }
+    ]
+  },
+  "pacte_associes": {
+    "title": "Pacte d'Associés Simplifié",
+    "description": "Pacte d'associés SARL/SAS conforme à l'AUSCGIE OHADA",
+    "countries": ["CI", "SN"],
+    "steps": [
+      {
+        "id": "societe",
+        "title": "La société",
+        "fields": [
+          { "id": "company_name", "type": "text", "label": "Nom de la société", "required": true },
+          { "id": "company_type", "type": "select", "label": "Forme juridique", "required": true, "options": [
+            { "value": "SARL", "label": "SARL (Société à Responsabilité Limitée)" },
+            { "value": "SAS", "label": "SAS (Société par Actions Simplifiée)" },
+            { "value": "SA", "label": "SA (Société Anonyme)" }
+          ]},
+          { "id": "company_address", "type": "text", "label": "Adresse du siège", "required": true },
+          { "id": "share_capital", "type": "number", "label": "Capital social (FCFA)", "required": true },
+          { "id": "company_purpose", "type": "textarea", "label": "Objet social", "required": true, "placeholder": "Ex : Développement et commercialisation de logiciels de gestion" },
+          { "id": "duration_years", "type": "number", "label": "Durée de la société (années)", "required": true, "default": 99 }
+        ]
+      },
+      {
+        "id": "associes",
+        "title": "Les associés",
+        "description": "Renseignez chaque associé avec son pourcentage. Le total doit faire 100%.",
+        "field_type": "associates_list",
+        "fields": [
+          { "id": "associates", "type": "associates_list", "label": "Liste des associés", "required": true }
+        ]
+      },
+      {
+        "id": "gouvernance",
+        "title": "La gouvernance",
+        "fields": [
+          { "id": "decisions_threshold", "type": "number", "label": "Seuil pour décisions importantes (%)", "required": true, "default": 75, "min": 51, "max": 100 },
+          { "id": "right_of_first_refusal", "type": "boolean", "label": "Droit de préemption entre associés", "required": true, "default": true },
+          { "id": "tag_along", "type": "boolean", "label": "Clause de sortie conjointe (Tag-Along)", "required": true, "default": true },
+          { "id": "drag_along", "type": "boolean", "label": "Clause de cession forcée (Drag-Along)", "required": true, "default": false }
+        ]
+      },
+      {
+        "id": "signature",
+        "title": "La signature",
+        "fields": [
+          { "id": "signature_date", "type": "text", "label": "Date de signature", "required": true },
+          { "id": "signature_place", "type": "text", "label": "Lieu de signature", "required": false }
+        ]
+      }
+    ]
+  }
+}
