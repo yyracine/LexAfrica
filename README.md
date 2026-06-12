@@ -1,115 +1,166 @@
-# Jarvis Starter Kit
+# LexAfrica
 
-> Votre assistant personnel propulsé par Claude Code, prêt en 15 minutes.
-
----
-
-## Bienvenue
-
-Ce dossier contient tout ce qu'il faut pour transformer Claude Code en votre véritable assistant personnel. Pas besoin de compétences techniques. Tout est pré-configuré pour vous.
-
-Le Jarvis Starter Kit a été conçu pour les débutants complets qui veulent installer rapidement un assistant IA personnel sans avoir à comprendre toute la mécanique technique en arrière-plan.
+Plateforme SaaS LegalTech B2B qui permet aux PME en **Côte d'Ivoire** et au **Sénégal** de générer des documents juridiques conformes au droit **OHADA**, sans passer par un avocat pour les actes standards.
 
 ---
 
-## Comment l'utiliser
+## Fonctionnalités
 
-### Étape 1 : Téléchargez ce dossier sur votre ordinateur
-
-Glissez-le sur votre Bureau ou dans un endroit facile à retrouver. Évitez les emplacements compliqués comme des sous-dossiers profonds.
-
-### Étape 2 : Ouvrez ce dossier dans Claude Code
-
-Lancez Claude Code et ouvrez ce dossier comme projet de travail.
-
-Si vous utilisez l'application Claude Desktop, ouvrez l'app, allez dans Claude Code, et sélectionnez ce dossier comme dossier de travail.
-
-### Étape 3 : Lancez l'installation interactive
-
-Tapez simplement cette commande dans Claude Code :
-
-```
-/install module-installs/jarvis-install
-```
-
-Claude Code va vous interviewer en vous posant des questions simples sur vous, votre vie, votre travail, et vos objectifs. Prenez votre temps pour bien répondre. La qualité de votre Jarvis dépend directement de la qualité de vos réponses.
-
-### Étape 4 : C'est tout !
-
-Une fois l'installation terminée, votre Jarvis personnel est opérationnel. Vous pouvez commencer à lui parler, lui demander de l'aide sur vos projets, lui faire prendre des notes, et bien plus.
+- Génération de documents juridiques en quelques minutes via un formulaire guidé
+- 5 types de documents : CDI, CDD, NDA, Contrat de prestation, Pacte d'associés
+- Règles OHADA adaptées par pays (Côte d'Ivoire et Sénégal)
+- Aperçu gratuit avec filigrane — version finale débloquée après paiement
+- Paiement Mobile Money via CinetPay (Orange Money, Wave, MTN MoMo)
+- Espace personnel pour retrouver et télécharger ses documents
 
 ---
 
-## Comment maintenir votre Jarvis à jour
+## Stack technique
 
-Votre Jarvis est conçu pour évoluer avec vous. À chaque nouvelle session importante, demandez-lui simplement de mettre à jour vos fichiers de contexte. Il le fera tout seul.
-
-Si quelque chose change dans votre vie (nouveau projet, nouveau job, nouvel objectif, décision majeure), dites-le simplement à Claude Code et il mettra à jour les fichiers automatiquement.
-
-Vous pouvez aussi utiliser la commande dédiée :
-
-```
-/update
-```
+| Couche | Technologie |
+|--------|-------------|
+| Frontend | Next.js 16, TypeScript, Tailwind CSS |
+| Backend | Python FastAPI |
+| Base de données | PostgreSQL (Supabase) |
+| Templates | docxtpl (Jinja2 dans .docx) |
+| Auth | JWT (python-jose) |
+| Paiement | CinetPay |
+| Déploiement cible | Vercel (frontend) + Render (backend) |
 
 ---
 
-## Structure du dossier
+## Structure du projet
 
 ```
-jarvis-starter-kit/
-├── README.md                    # Ce manuel d'utilisation
-├── CLAUDE.md                    # L'âme de votre assistant
-├── context/
-│   ├── CONTEXT.md               # Qui vous êtes, ce que vous faites, vos objectifs
-│   ├── HISTORY.md               # Historique évolutif de vos sessions
-│   └── import/                  # Déposez ici les documents à analyser
-├── .claude/
-│   ├── commands/
-│   │   ├── prime.md             # Commande /prime pour démarrer une session
-│   │   ├── update.md            # Commande /update pour mettre à jour le contexte
-│   │   └── morning.md           # Commande /morning pour démarrer la journée
-│   └── skills/
-│       └── recherche-actualites/ # Skill de veille personnalisée incluse
-└── module-installs/
-    └── jarvis-install/
-        ├── INSTALL.md           # Le module d'installation interactif
-        └── README.md            # Description du module
+LexAfrica/
+├── backend/              # API FastAPI
+│   ├── app/
+│   │   ├── engine/       # Moteur de règles OHADA par pays
+│   │   ├── models/       # Modèles SQLAlchemy (users, documents)
+│   │   ├── routers/      # Endpoints API (auth, documents, payments)
+│   │   ├── schemas/      # Schémas Pydantic
+│   │   └── services/     # Logique métier
+│   ├── templates/        # Fichiers .docx Jinja2 (modèles juridiques)
+│   └── alembic/          # Migrations base de données
+├── frontend/             # Application Next.js
+│   └── src/
+│       ├── app/          # Pages (App Router)
+│       ├── components/   # Wizard, Dashboard, UI
+│       ├── lib/          # API client, types, utilitaires
+│       └── store/        # État global (Zustand)
+└── docs/
+    └── wizard_schemas.json   # Définition des formulaires par type de document
 ```
 
 ---
 
-## Les 3 fichiers clés à comprendre
+## Installation en local
 
-### CLAUDE.md
-C'est l'âme de votre assistant. Il définit comment Claude Code doit vous parler et vous aider. Il est lu automatiquement au début de chaque session.
+### Prérequis
 
-### context/CONTEXT.md
-Votre carte d'identité. Qui vous êtes, ce que vous faites, vos objectifs, vos projets en cours. Plus ce fichier est riche et à jour, plus votre Jarvis sera pertinent.
+- Python 3.11+
+- Node.js 18+
+- Un projet Supabase (PostgreSQL)
 
-### context/HISTORY.md
-Votre journal de bord vivant. Toutes vos sessions importantes, vos décisions, vos avancées. Claude le met à jour automatiquement après chaque session significative.
+### Backend
+
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+pip install -r requirements.txt
+
+# Configurer les variables d'environnement
+cp .env.example .env
+# Éditer .env avec vos credentials Supabase et votre clé JWT
+
+# Appliquer les migrations
+alembic upgrade head
+
+# Lancer le serveur
+python -m uvicorn main:app --reload --port 8000
+```
+
+Documentation API disponible sur : `http://localhost:8000/docs`
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+
+# Configurer les variables d'environnement
+echo "NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1" > .env.local
+
+# Lancer le serveur
+npm run dev
+```
+
+Application disponible sur : `http://localhost:3000`
 
 ---
 
-## Bonnes pratiques
+## Variables d'environnement
 
-- **Démarrez chaque session avec `/prime`** pour que votre Jarvis charge votre contexte complet
-- **Soyez honnête dans vos réponses** lors de l'installation initiale
-- **Mettez à jour régulièrement** vos fichiers quand votre situation évolue
-- **Utilisez le dossier `context/import/`** pour déposer des documents externes que Claude doit analyser (PDFs, exports, etc.)
-- **Validez toujours** les modifications que Claude propose sur vos fichiers
+### `backend/.env`
+
+```env
+DATABASE_URL=postgresql://...         # URL Session Pooler Supabase
+JWT_SECRET_KEY=votre-cle-secrete
+JWT_ALGORITHM=HS256
+JWT_EXPIRE_MINUTES=1440
+ENVIRONMENT=development
+CORS_ORIGINS=["http://localhost:3000"]
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_SERVICE_KEY=votre-service-key
+TEMPLATES_DIR=templates
+```
+
+### `frontend/.env.local`
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+```
 
 ---
 
-## Besoin d'aide ?
+## API — Endpoints principaux
 
-Rejoignez la **Communauté IA** sur Skool pour échanger avec d'autres utilisateurs, poser vos questions, et découvrir comment d'autres personnes utilisent leur Jarvis au quotidien. C'est gratuit.
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/v1/auth/register` | Inscription |
+| POST | `/api/v1/auth/login` | Connexion, retourne un JWT |
+| GET | `/api/v1/auth/me` | Profil utilisateur connecté |
+| POST | `/api/v1/documents/generate-preview` | Génère un .docx avec filigrane (sans auth) |
+| POST | `/api/v1/documents/generate` | Génère et sauvegarde en BDD (auth requis) |
+| GET | `/api/v1/documents/` | Liste les documents de l'utilisateur |
+| GET | `/api/v1/documents/{id}/download` | Télécharge un document |
 
 ---
 
-## Crédits
+## Documents disponibles
 
-Créé par Yassine SDIRI, exclusivement pour les membres de la **Communauté IA** sur Skool. Ce starter kit est réservé à un usage personnel.
+| Type | Nom complet | CI | SN |
+|------|-------------|----|----|
+| `cdi` | Contrat à Durée Indéterminée | ✅ | ✅ |
+| `cdd` | Contrat à Durée Déterminée | ✅ | ✅ |
+| `nda` | Accord de Confidentialité | ✅ | ✅ |
+| `prestation` | Contrat de Prestation de Services | ✅ | ✅ |
+| `pacte_associes` | Pacte d'Associés | ✅ | ✅ |
 
-Pour aller plus loin dans votre apprentissage et maîtriser l'IA en profondeur, découvrez **IAPreneur Académie**, l'école dédiée aux entrepreneurs et professionnels qui veulent passer à un niveau supérieur : https://www.iapreneurs.com/
+---
+
+## État d'avancement
+
+- [x] Phase 1 — Moteur de génération de documents
+- [x] Phase 2 — Authentification et base de données
+- [x] Phase 3 — Interface utilisateur (wizard + dashboard)
+- [ ] Phase 4 — Paiement CinetPay + déblocage document final
+- [ ] Phase 5 — Alertes échéances (CDD)
+- [ ] Phase 6 — Déploiement production
+
+---
+
+## Licence
+
+Projet propriétaire. Tous droits réservés.

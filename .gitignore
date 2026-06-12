@@ -34,6 +34,7 @@ frontend/nextdev.log
 .claude/
 context/
 module-installs/
+README_JARVIS.md
 
 # ── Fichiers de test locaux ──────────────────────────────
 test_*.docx
