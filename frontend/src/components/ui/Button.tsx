@@ -21,8 +21,8 @@ export function Button({
   const variants = {
     primary: 'bg-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500',
     secondary: 'bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500',
-    outline: 'border-2 border-blue-700 text-blue-700 hover:bg-blue-50 focus:ring-blue-500',
-    ghost: 'text-slate-600 hover:bg-slate-100 focus:ring-slate-400',
+    outline: 'border-2 border-blue-700 dark:border-blue-500 text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:ring-blue-500',
+    ghost: 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:ring-slate-400',
   }
 
   const sizes = {

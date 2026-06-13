@@ -35,8 +35,8 @@ export default function DashboardPage() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Mes documents</h1>
-          <p className="text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Mes documents</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">
             {user.company_name || user.email} · Plan {user.plan}
           </p>
         </div>
@@ -46,20 +46,20 @@ export default function DashboardPage() {
       </div>
 
       {loading && (
-        <div className="text-center py-16 text-slate-400">Chargement...</div>
+        <div className="text-center py-16 text-slate-400 dark:text-slate-500">Chargement...</div>
       )}
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm px-4 py-3 rounded-lg">
           {error}
         </div>
       )}
 
       {!loading && !error && docs.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-2xl border border-slate-200">
+        <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700">
           <div className="text-5xl mb-4">📂</div>
-          <h2 className="text-lg font-semibold text-slate-700 mb-2">Aucun document pour l'instant</h2>
-          <p className="text-slate-500 text-sm mb-6">Générez votre premier contrat en quelques minutes.</p>
+          <h2 className="text-lg font-semibold text-slate-700 dark:text-slate-200 mb-2">Aucun document pour l'instant</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">Générez votre premier contrat en quelques minutes.</p>
           <Link href="/">
             <Button>Créer mon premier document</Button>
           </Link>

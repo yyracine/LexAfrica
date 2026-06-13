@@ -10,12 +10,12 @@ export function ProgressBar({ current, total, steps }: ProgressBarProps) {
   return (
     <div className="mb-8">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-slate-600">
+        <span className="text-sm font-medium text-slate-600 dark:text-slate-300">
           Étape {current + 1} sur {total}
         </span>
-        <span className="text-sm text-slate-400">{pct}%</span>
+        <span className="text-sm text-slate-400 dark:text-slate-500">{pct}%</span>
       </div>
-      <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
         <div
           className="h-full bg-blue-600 rounded-full transition-all duration-500"
           style={{ width: `${pct}%` }}
@@ -27,10 +27,10 @@ export function ProgressBar({ current, total, steps }: ProgressBarProps) {
             key={i}
             className={`flex-1 min-w-0 text-center text-xs px-1 py-1 rounded truncate transition-colors ${
               i === current
-                ? 'bg-blue-100 text-blue-700 font-medium'
+                ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 font-medium'
                 : i < current
-                ? 'text-emerald-600'
-                : 'text-slate-400'
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-slate-400 dark:text-slate-500'
             }`}
           >
             {i < current ? '✓ ' : ''}{s.title}

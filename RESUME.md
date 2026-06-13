@@ -91,6 +91,9 @@ Les tables `users` et `documents` sont créées (migration Alembic `d3740e791b43
 - Dashboard avec liste des documents générés
 - Pages auth (login, inscription)
 - Comportement : aperçu `.docx` avec filigrane téléchargé en cliquant "Générer et télécharger". Si connecté, document sauvegardé en BDD aussi.
+- **Mode sombre** : implémenté sur l'ensemble de l'application via `next-themes` + classes Tailwind `dark:`. Bouton bascule 🌙/☀️ dans la Navbar. Thème système par défaut.
+- **Fix session persistante** : correction du bug où l'app ouvrait directement sur le dernier utilisateur connecté. Pattern `mounted` dans `page.tsx` pour éviter les redirects prématurés au chargement Zustand. Redirection vers `/` si déjà connecté sur la page login.
+- **Fix hydration Dark Reader** : `suppressHydrationWarning` sur `<html>` pour éviter les erreurs React dues à l'extension Dark Reader.
 
 ### Phase 4 — Paiement CinetPay 🔲 À FAIRE
 
@@ -134,9 +137,10 @@ npm run dev
 
 ## Points d'attention techniques
 
-- **Tailwind CSS v4** : syntaxe `@import "tailwindcss"` dans `globals.css` (pas `@tailwind base/components/utilities`)
+- **Tailwind CSS v4** : syntaxe `@import "tailwindcss"` dans `globals.css` (pas `@tailwind base/components/utilities`). Utiliser `@custom-variant` (pas `@variant`, déprécié).
 - **Next.js 16** : `params` et `searchParams` sont des `Promise<...>` dans les page components, il faut les `await`
-- **Mode sombre supprimé** : le `@media (prefers-color-scheme: dark)` a été retiré de `globals.css` pour éviter le texte blanc sur fond blanc des inputs
+- **Mode sombre** : `next-themes` gère la classe `dark` sur `<html>`. Dans `globals.css` : `@custom-variant dark (&:where(.dark, .dark *));`. ThemeProvider dans `layout.tsx`. Bouton bascule dans `Navbar.tsx` avec guard `mounted` pour éviter le mismatch d'hydration.
+- **Hydration Zustand/Zustand persist** : ne jamais lire le store Zustand avant que le composant soit monté côté client. Pattern : `const [mounted, setMounted] = useState(false)` + `useEffect(() => setMounted(true), [])`.
 - **spellCheck désactivé** : tous les inputs ont `spellCheck={false} lang="fr"` pour éviter le soulignement rouge sur les termes français/juridiques
 - **wizard_schemas.json** : présent à deux endroits — `docs/wizard_schemas.json` (source) et `frontend/src/lib/wizard_schemas.json` (copie pour import Next.js). Si on modifie les schémas, mettre à jour les deux.
 - **SQLAlchemy sync** avec `psycopg2-binary`, pas async. Ne pas passer à asyncpg sans refactoring complet.
@@ -166,4 +170,4 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
 
 ---
 
-*Dernière mise à jour : Phase 3 terminée — juin 2026*
+*Dernière mise à jour : Phase 3 + mode sombre + fixes hydration — juin 2026*

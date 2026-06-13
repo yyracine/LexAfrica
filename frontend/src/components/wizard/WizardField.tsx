@@ -10,7 +10,8 @@ interface WizardFieldProps {
 }
 
 export function WizardField({ field, value, country, onChange }: WizardFieldProps) {
-  const inputClass = 'w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+  const inputClass = 'w-full border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2.5 text-sm text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
+  const labelClass = 'block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5'
 
   const defaultVal = country === 'CI' ? field.default_CI : country === 'SN' ? field.default_SN : field.default
   const displayValue = value !== undefined && value !== '' ? value : (defaultVal ?? '')
@@ -18,16 +19,10 @@ export function WizardField({ field, value, country, onChange }: WizardFieldProp
   if (field.type === 'select') {
     return (
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
+        <label className={labelClass}>
           {field.label} {field.required && <span className="text-red-500">*</span>}
         </label>
-        <select
-          value={displayValue as string}
-          onChange={e => onChange(e.target.value)}
-          className={inputClass}
-          required={field.required}
-          lang="fr"
-        >
+        <select value={displayValue as string} onChange={e => onChange(e.target.value)} className={inputClass} required={field.required} lang="fr">
           <option value="">Sélectionner...</option>
           {field.options?.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -40,7 +35,7 @@ export function WizardField({ field, value, country, onChange }: WizardFieldProp
   if (field.type === 'textarea') {
     return (
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1.5">
+        <label className={labelClass}>
           {field.label} {field.required && <span className="text-red-500">*</span>}
         </label>
         <textarea
@@ -65,9 +60,9 @@ export function WizardField({ field, value, country, onChange }: WizardFieldProp
           id={field.id}
           checked={displayValue as boolean ?? false}
           onChange={e => onChange(e.target.checked)}
-          className="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+          className="mt-0.5 h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
         />
-        <label htmlFor={field.id} className="text-sm text-slate-700 cursor-pointer">
+        <label htmlFor={field.id} className="text-sm text-slate-700 dark:text-slate-200 cursor-pointer">
           {field.label}
         </label>
       </div>
@@ -80,7 +75,7 @@ export function WizardField({ field, value, country, onChange }: WizardFieldProp
 
   return (
     <div>
-      <label className="block text-sm font-medium text-slate-700 mb-1.5">
+      <label className={labelClass}>
         {field.label} {field.required && <span className="text-red-500">*</span>}
       </label>
       <input
@@ -111,7 +106,7 @@ function AssociatesList({ value, onChange }: { value: Associate[]; onChange: (v:
 
   return (
     <div>
-      <label className="block text-sm font-medium text-slate-700 mb-2">
+      <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
         Liste des associés <span className="text-red-500">*</span>
       </label>
       <div className="space-y-2">
@@ -128,7 +123,7 @@ function AssociatesList({ value, onChange }: { value: Associate[]; onChange: (v:
               }}
               spellCheck={false}
               lang="fr"
-              className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <input
               type="number"
@@ -141,7 +136,7 @@ function AssociatesList({ value, onChange }: { value: Associate[]; onChange: (v:
                 list[i] = { ...list[i], percentage: parseFloat(e.target.value) || 0 }
                 update(list)
               }}
-              className="w-20 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-20 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {associates.length > 1 && (
               <button
@@ -159,11 +154,11 @@ function AssociatesList({ value, onChange }: { value: Associate[]; onChange: (v:
         <button
           type="button"
           onClick={() => update([...associates, { name: '', percentage: 0 }])}
-          className="text-sm text-blue-600 hover:underline"
+          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
         >
           + Ajouter un associé
         </button>
-        <span className={`text-sm font-medium ${total === 100 ? 'text-emerald-600' : 'text-orange-500'}`}>
+        <span className={`text-sm font-medium ${total === 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-orange-500'}`}>
           Total : {total}%{total !== 100 && ' (doit être 100%)'}
         </span>
       </div>

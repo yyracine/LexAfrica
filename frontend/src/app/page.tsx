@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
+import { useAuthStore } from '@/store/auth'
 import type { DocumentType, Country } from '@/lib/types'
 
 const DOCUMENTS = [
@@ -46,7 +47,21 @@ const COUNTRIES = [
 export default function HomePage() {
   const [selectedDoc, setSelectedDoc] = useState<DocumentType | null>(null)
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
+  const { user } = useAuthStore()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (mounted && !user) {
+      router.push('/auth/login')
+    }
+  }, [mounted, user, router])
+
+  if (!mounted || !user) return null
 
   const handleStart = () => {
     if (!selectedDoc || !selectedCountry) return
@@ -56,21 +71,21 @@ export default function HomePage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-sm px-4 py-1.5 rounded-full border border-blue-200 mb-6">
+        <div className="inline-flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 text-sm px-4 py-1.5 rounded-full border border-blue-200 dark:border-blue-800 mb-6">
           <span>⚖️</span>
           <span>Conforme au droit OHADA — Côte d'Ivoire &amp; Sénégal</span>
         </div>
-        <h1 className="text-4xl font-bold text-slate-800 mb-4 leading-tight">
+        <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-4 leading-tight">
           Vos documents juridiques<br />
-          <span className="text-blue-700">en quelques minutes</span>
+          <span className="text-blue-700 dark:text-blue-400">en quelques minutes</span>
         </h1>
-        <p className="text-lg text-slate-500 max-w-xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
           Générez des contrats professionnels conformes à la législation locale, sans avocat, pour moins de 5 000 FCFA.
         </p>
       </div>
 
       <div className="mb-8">
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
+        <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
           1. Quel document souhaitez-vous générer ?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -80,18 +95,18 @@ export default function HomePage() {
               onClick={() => setSelectedDoc(doc.id)}
               className={`relative text-left p-4 rounded-xl border-2 transition-all ${
                 selectedDoc === doc.id
-                  ? 'border-blue-600 bg-blue-50 shadow-sm'
-                  : 'border-slate-200 bg-white hover:border-blue-300 hover:shadow-sm'
+                  ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-sm'
               }`}
             >
               {doc.popular && (
-                <span className="absolute top-3 right-3 text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
+                <span className="absolute top-3 right-3 text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full font-medium">
                   Populaire
                 </span>
               )}
               <div className="text-2xl mb-2">{doc.icon}</div>
-              <div className="font-semibold text-slate-800 text-sm">{doc.title}</div>
-              <div className="text-slate-500 text-xs mt-1 leading-relaxed">{doc.description}</div>
+              <div className="font-semibold text-slate-800 dark:text-slate-100 text-sm">{doc.title}</div>
+              <div className="text-slate-500 dark:text-slate-400 text-xs mt-1 leading-relaxed">{doc.description}</div>
             </button>
           ))}
         </div>
@@ -99,7 +114,7 @@ export default function HomePage() {
 
       {selectedDoc && (
         <div className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
+          <h2 className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">
             2. Quel droit s'applique ?
           </h2>
           <div className="grid grid-cols-2 gap-3 max-w-sm">
@@ -109,13 +124,13 @@ export default function HomePage() {
                 onClick={() => setSelectedCountry(c.id)}
                 className={`text-left p-4 rounded-xl border-2 transition-all ${
                   selectedCountry === c.id
-                    ? 'border-blue-600 bg-blue-50 shadow-sm'
-                    : 'border-slate-200 bg-white hover:border-blue-300'
+                    ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-blue-300 dark:hover:border-blue-600'
                 }`}
               >
                 <div className="text-3xl mb-1">{c.flag}</div>
-                <div className="font-semibold text-slate-800 text-sm">{c.label}</div>
-                <div className="text-slate-500 text-xs mt-0.5">{c.law}</div>
+                <div className="font-semibold text-slate-800 dark:text-slate-100 text-sm">{c.label}</div>
+                <div className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">{c.law}</div>
               </button>
             ))}
           </div>
@@ -127,13 +142,13 @@ export default function HomePage() {
           <Button size="lg" onClick={handleStart} className="gap-2">
             Commencer le formulaire →
           </Button>
-          <p className="text-xs text-slate-400 mt-3">
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-3">
             Aperçu gratuit avec filigrane. Document final disponible après paiement.
           </p>
         </div>
       )}
 
-      <div className="mt-16 flex flex-wrap gap-6 items-center justify-center text-sm text-slate-500">
+      <div className="mt-16 flex flex-wrap gap-6 items-center justify-center text-sm text-slate-500 dark:text-slate-400">
         <span>✅ Conforme OHADA</span>
         <span>⚡ Généré en 2 minutes</span>
         <span>📥 Téléchargement .docx</span>

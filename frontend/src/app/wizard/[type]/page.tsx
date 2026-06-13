@@ -27,15 +27,15 @@ export default async function WizardPage({ params, searchParams }: PageProps) {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
-          <a href="/" className="hover:text-blue-700">Accueil</a>
+        <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-3">
+          <a href="/" className="hover:text-blue-700 dark:hover:text-blue-400">Accueil</a>
           <span>›</span>
           <span>{countryLabel}</span>
           <span>›</span>
-          <span className="text-slate-800 font-medium">{schema.title}</span>
+          <span className="text-slate-800 dark:text-slate-100 font-medium">{schema.title}</span>
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">{schema.title}</h1>
-        <p className="text-slate-500 mt-1">{schema.description}</p>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{schema.title}</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-1">{schema.description}</p>
       </div>
 
       <WizardContainer

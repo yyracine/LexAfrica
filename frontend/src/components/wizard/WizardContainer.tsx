@@ -80,12 +80,12 @@ export function WizardContainer({ schema, documentType, country }: WizardContain
     return (
       <div className="text-center py-16">
         <div className="text-6xl mb-6">🎉</div>
-        <h2 className="text-2xl font-bold text-slate-800 mb-3">Document téléchargé !</h2>
-        <p className="text-slate-500 mb-2">
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-3">Document téléchargé !</h2>
+        <p className="text-slate-500 dark:text-slate-400 mb-2">
           Votre aperçu <strong>{schema.title}</strong> a été téléchargé avec le filigrane APERÇU.
         </p>
         {!token && (
-          <p className="text-sm text-blue-700 bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-6 max-w-md mx-auto">
+          <p className="text-sm text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-3 mb-6 max-w-md mx-auto">
             Créez un compte gratuit pour sauvegarder vos documents et obtenir la version finale sans filigrane.
           </p>
         )}
@@ -107,10 +107,10 @@ export function WizardContainer({ schema, documentType, country }: WizardContain
     <div>
       <ProgressBar current={step} total={schema.steps.length} steps={schema.steps} />
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
-        <h2 className="text-xl font-bold text-slate-800 mb-1">{currentStep.title}</h2>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 md:p-8">
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-1">{currentStep.title}</h2>
         {currentStep.description && (
-          <p className="text-slate-500 text-sm mb-6">{currentStep.description}</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">{currentStep.description}</p>
         )}
 
         <div className="space-y-5 mt-6">
@@ -126,17 +126,13 @@ export function WizardContainer({ schema, documentType, country }: WizardContain
         </div>
 
         {error && (
-          <div className="mt-4 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">
+          <div className="mt-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
 
-        <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-100">
-          <Button
-            variant="ghost"
-            onClick={handleBack}
-            disabled={step === 0}
-          >
+        <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+          <Button variant="ghost" onClick={handleBack} disabled={step === 0}>
             ← Retour
           </Button>
 
